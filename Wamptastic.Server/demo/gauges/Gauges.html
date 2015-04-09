@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://demo.crossbar.io/demo/gauges/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta charset="UTF-8">
+      <link rel="shortcut icon" href="https://demo.crossbar.io/img/favicon.ico">
+      <title>Gauges</title>
+      <link rel="stylesheet" href="https://demo.crossbar.io/jqueryui/css/ui-lightness/jquery-ui-1.8.23.custom.css">
+      <link rel="stylesheet" href="https://demo.crossbar.io/demo/demo.css">
+      <link rel="stylesheet" href="https://demo.crossbar.io/demo/gauges/css/gauges.css">
+   </head>
+   <body>
+      <header>
+         <div id="header_inner">
+            <div id="demo_title">
+               <span>Gauges</span>
+            </div>
+            <a class="navbar-brand" href="https://demo.crossbar.io/demo/gauges/index.html#">
+               <img src="./Gauges_files/crossbar_icon_inverted.svg" alt="crossbar logo inverted" width="60" height="60">
+               <img src="./Gauges_files/crossbar_demos_text_paths.svg" alt="crossbar logo inverted" width="248" height="60">
+            </a>
+         </div>
+
+      </header>
+      <div class="demo_links">
+         <p>
+            Gauge state synched across all browser tabs subscribed to the same channel.<br>
+            Built with <a href="http://justgage.com/">JustGage</a>.
+         </p>
+         <div>
+            <a id="secondInstance" href="https://demo.crossbar.io/demo/gauges/index.html?channel=104877" target="_blank">Open 2nd instance</a>
+            <a href="https://github.com/crossbario/crossbardemo/tree/master/crossbardemo/crossbardemo/web/demo/gauges">Source Code</a>
+            <a href="http://crossbar.io/">
+               Crossbar.io Homepage
+            </a>
+         </div>
+      </div>
+
+      <div id="demo_body">
+         <div id="bigGauge">
+            <div id="g0"><svg height="100%" version="1.1" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative; left: -0.5px;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Rapha�l 2.1.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><filter id="g0-inner-shadow"><feoffset dx="0" dy="3"></feoffset><fegaussianblur result="offset-blur" stdDeviation="5"></fegaussianblur><fecomposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"></fecomposite><feflood flood-color="black" flood-opacity="0.2" result="color"></feflood><fecomposite operator="in" in="color" in2="inverse" result="shadow"></fecomposite><fecomposite operator="over" in="shadow" in2="SourceGraphic"></fecomposite></filter></defs><path fill="#edebeb" stroke="none" d="M100,256L40,256A160,160,0,0,1,360,256L300,256A100,100,0,0,0,100,256Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g0-inner-shadow)"></path><path fill="#d9ce05" stroke="none" d="M100,256L40,256A160,160,0,0,1,105.95435963320432,126.55728090000841L141.2214747707527,175.09830056250524A100,100,0,0,0,100,256Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g0-inner-shadow)"></path><text x="200" y="49.23076923076923" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#999999" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 32px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="32px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="11.004206730769234" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Big Fella</tspan></text><text x="200" y="228.57142857142858" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#010101" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 50px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="50px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="17.001116071428584" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">30</tspan></text><text x="200" y="259.57142857142856" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="20px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="7.001116071428555" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">pounds</tspan></text><text x="70" y="283.99999999999994" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="20px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="6.999999999999943" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan></text><text x="330" y="283.99999999999994" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="20px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="6.999999999999943" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">100</tspan></text></svg></div>
+            <div id="s0" class="bigSlider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-slider-range-min" style="width: 30%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://demo.crossbar.io/demo/gauges/index.html#" style="left: 30%;"></a></div>
+         </div>
+
+         <div id="smallGauges">
+            <div id="gauges">
+               <div id="g1"><svg height="100%" version="1.1" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative; left: -0.5px;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Rapha�l 2.1.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><filter id="g1-inner-shadow"><feoffset dx="0" dy="3"></feoffset><fegaussianblur result="offset-blur" stdDeviation="5"></fegaussianblur><fecomposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"></fecomposite><feflood flood-color="black" flood-opacity="0.2" result="color"></feflood><fecomposite operator="in" in="color" in2="inverse" result="shadow"></fecomposite><fecomposite operator="over" in="shadow" in2="SourceGraphic"></fecomposite></filter></defs><path fill="#edebeb" stroke="none" d="M25,64L10,64A40,40,0,0,1,90,64L75,64A25,25,0,0,0,25,64Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g1-inner-shadow)"></path><path fill="#c9d107" stroke="none" d="M25,64L10,64A40,40,0,0,1,17.639320225002102,40.488589908301066L29.774575140626315,49.30536869268817A25,25,0,0,0,25,64Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g1-inner-shadow)"></path><text x="50" y="12.307692307692308" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#999999" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="3.5030048076923084" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Small Buddy</tspan></text><text x="50" y="57.142857142857146" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#010101" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="16px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="5.494419642857146" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">20</tspan></text><text x="50" y="71.14285714285714" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.494419642857139" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">oz</tspan></text><text x="17.5" y="70.99999999999999" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.499999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan></text><text x="82.5" y="70.99999999999999" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.499999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">100</tspan></text></svg></div>
+               <div id="g2"><svg height="100%" version="1.1" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative; left: -0.875px;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Rapha�l 2.1.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><filter id="g2-inner-shadow"><feoffset dx="0" dy="3"></feoffset><fegaussianblur result="offset-blur" stdDeviation="5"></fegaussianblur><fecomposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"></fecomposite><feflood flood-color="black" flood-opacity="0.2" result="color"></feflood><fecomposite operator="in" in="color" in2="inverse" result="shadow"></fecomposite><fecomposite operator="over" in="shadow" in2="SourceGraphic"></fecomposite></filter></defs><path fill="#edebeb" stroke="none" d="M25,64L10,64A40,40,0,0,1,90,64L75,64A25,25,0,0,0,25,64Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g2-inner-shadow)"></path><path fill="#e9cb03" stroke="none" d="M25,64L10,64A40,40,0,0,1,37.63932022500211,25.957739348193854L42.27457514062632,40.22358709262116A25,25,0,0,0,25,64Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g2-inner-shadow)"></path><text x="50" y="12.307692307692308" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#999999" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="3.5030048076923084" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Tiny Lad</tspan></text><text x="50" y="57.142857142857146" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#010101" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="16px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="5.494419642857146" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">40</tspan></text><text x="50" y="71.14285714285714" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.494419642857139" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">oz</tspan></text><text x="17.5" y="70.99999999999999" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.499999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan></text><text x="82.5" y="70.99999999999999" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.499999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">100</tspan></text></svg></div>
+               <div id="g3"><svg height="100%" version="1.1" width="100%" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative; left: -0.5px;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Rapha�l 2.1.0</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><filter id="g3-inner-shadow"><feoffset dx="0" dy="3"></feoffset><fegaussianblur result="offset-blur" stdDeviation="5"></fegaussianblur><fecomposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"></fecomposite><feflood flood-color="black" flood-opacity="0.2" result="color"></feflood><fecomposite operator="in" in="color" in2="inverse" result="shadow"></fecomposite><fecomposite operator="over" in="shadow" in2="SourceGraphic"></fecomposite></filter></defs><path fill="#edebeb" stroke="none" d="M25,64L10,64A40,40,0,0,1,90,64L75,64A25,25,0,0,0,25,64Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g3-inner-shadow)"></path><path fill="#faa001" stroke="none" d="M25,64L10,64A40,40,0,0,1,62.3606797749979,25.95773934819386L57.72542485937369,40.22358709262116A25,25,0,0,0,25,64Z" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" filter="url(#g3-inner-shadow)"></path><text x="50" y="12.307692307692308" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#999999" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="3.5030048076923084" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Little Pal</tspan></text><text x="50" y="57.142857142857146" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#010101" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: bold; font-stretch: normal; font-size: 16px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="16px" font-weight="bold" font-family="Arial" fill-opacity="1"><tspan dy="5.494419642857146" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">60</tspan></text><text x="50" y="71.14285714285714" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.494419642857139" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">oz</tspan></text><text x="17.5" y="70.99999999999999" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.499999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan></text><text x="82.5" y="70.99999999999999" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#b3b3b3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 10px; line-height: normal; font-family: Arial; fill-opacity: 1;" font-size="10px" font-weight="normal" font-family="Arial" fill-opacity="1"><tspan dy="3.499999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">100</tspan></text></svg></div>
+            </div>
+            <div id="eqSliders">
+               <span id="s1" class="ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-slider-range-min" style="height: 20%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://demo.crossbar.io/demo/gauges/index.html#" style="bottom: 20%;"></a></span>
+               <span id="s2" class="ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-slider-range-min" style="height: 40%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://demo.crossbar.io/demo/gauges/index.html#" style="bottom: 40%;"></a></span>
+               <span id="s3" class="ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-slider-range-min" style="height: 60%;"></div><a class="ui-slider-handle ui-state-default ui-corner-all" href="https://demo.crossbar.io/demo/gauges/index.html#" style="bottom: 60%;"></a></span>
+            </div>
+            <div>
+               Controller Channel: <input type="text" id="controller-channel" size="6" maxlength="6" value="{{channel}}">
+               <button id="controller-channel-switch" class="button" disabled="">Switch</button>
+               <button id="controller-channel-cancel" class="button" disabled="">Cancel</button>
+            </div>
+         </div>
+
+
+
+          <div class="status_line noContainer">
+            Status: <span class="statusline">Connected to wss://demo.crossbar.io/ws</span>
+         </div>
+
+
+      </div>
+
+
+
+
+      <!-- jQuery -->
+      <script type="text/javascript" src="./Gauges_files/jquery.min.js"></script>
+      <script type="text/javascript" src="./Gauges_files/jquery-ui-1.8.23.custom.min.js"></script>
+
+      <!-- JustGage -->
+      <script src="./Gauges_files/raphael.2.1.0.min.js"></script>
+      <script src="./Gauges_files/justgage.1.0.1.min.js"></script>
+
+      <!-- AutobahnJS -->
+      <script>
+         AUTOBAHN_DEBUG = true;
+      </script>
+      <script src="./Gauges_files/autobahn.min.js"></script>
+
+      <!-- Demo code -->
+      <script type="text/javascript" src="./Gauges_files/config.js"></script>
+      <script type="text/javascript" src="./Gauges_files/demo.js"></script>
+      <script src="./Gauges_files/gauges.js"></script>
+
+
+      <!-- community widget iframe -->
+
+      <!-- general styles for the widget -->
+      <link rel="stylesheet" type="text/css" href="./Gauges_files/parent.css">
+
+      <!-- local stylesheet -->
+      <!--     - ensures non-Display if nothing loads -->
+      <!--     - site-specific positioning of widget -->
+      <style>
+         #communityWidget.nonDisplay {
+            display: none;
+         }
+
+         #communityWidget {
+            top: 111px;
+            right: 0px;
+            box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.4);
+         }
+      </style>
+
+      <!-- IFrame itself -->
+      <iframe id="communityWidget" class="nonDisplay" src="./Gauges_files/index.html" frameborder="0"></iframe>
+
+      <!-- the parent page connecting code -->
+      <script src="./Gauges_files/parent.js"></script>
+
+   
+
+</body></html>

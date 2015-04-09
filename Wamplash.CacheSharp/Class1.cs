@@ -7,7 +7,7 @@ using CacheSharp;
 using CacheSharp.Redis;
 using Newtonsoft.Json;
 
-namespace Wamplash.CacheSharp
+namespace Wamplash.Redis
 {
     public class CacheSharpWampWebSocketHandler : WampWebSocketHandler
     {

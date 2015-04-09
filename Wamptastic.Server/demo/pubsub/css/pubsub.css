@@ -1,0 +1,245 @@
+﻿
+
+.content_wrapper
+{
+   width: 830px;
+   margin: 1em auto;
+}
+
+
+
+/**** dual-color boxes ***/
+
+.box
+{
+   width: 400px;
+   margin: 0 0 1.5em;
+   border-radius: 3px; /* same as the heading and the content boxes have*/
+   box-shadow: 0 0 10px 2px rgba(0, 0, 0, .5);
+   word-break: break-all;
+   position: relative;
+}
+
+
+.box_left
+{
+   float: left;
+}
+
+.box_right
+{
+   float: right;
+}
+
+.box_heading strong {
+   color: #000;
+}
+
+
+.centered > div
+{
+   text-align: center;
+}
+
+
+
+
+
+
+
+.content_wrapper a,
+.content_wrapper a:visited
+{
+   color: #777;
+}
+.content_wrapper a:hover
+{
+}
+
+
+
+/***** styles for the PubSub demo *****/
+
+#pub_sub_wrapper
+{
+   margin-top: 3em;
+   position: relative;
+}
+
+
+#central_table_wrapper
+{
+  margin: 0 auto;
+}
+
+
+#central_table_wrapper
+{
+   display: table;
+}
+
+#central_table_wrapper .box
+{
+   margin: 0 10px;
+}
+
+#central_table_wrapper>div
+{
+   display: table-row;
+}
+
+.column
+{
+   width: 405px;
+   display: table-cell;
+   padding: 0 0 0 0;
+}
+
+.spacer
+{
+   width: 20px;
+   display: table-cell;
+   height: 100%;
+}
+
+.column_content
+{
+   padding: 0 10px;
+
+}
+
+.or,
+.content_heading
+{
+   text-align: center;
+}
+
+.content_heading
+{
+   display: block;
+   font-size: 20px;
+   color: #eee;
+   background-color: #aaa;
+   width: 4em;
+   padding: .3em 2em;
+   text-align: center;
+   border-radius: 15px;
+   box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
+   margin: 0 auto 1em;
+}
+
+.or
+{
+   font-size: 100%;
+   color: #eee;
+   background-color: #aaa;
+   width: 2em;
+   margin: 1em auto;
+   border-radius: 8px;
+   padding: 5px;
+}
+
+#sub_subscribe
+{
+   margin: 0 0 0 2em;
+}
+
+#sub_message_details
+{
+   margin-top: 0.8em;
+   margin-bottom: 1.8em;
+}
+
+#sub_message_details_time
+{
+   margin: 0 0 0 0.5em;
+}
+
+#curl_installed,
+#last_message
+{
+   font-size: 90%;
+   color: #777;
+}
+#alt_2_bottom_spacer
+{
+   height: 30px;
+}
+
+.box_content_alt_2
+{
+   height: 180px;
+}
+
+#market_link_container,
+#qr_code_container
+{
+   margin: 10px 10px;
+}
+
+.box_content_alt_1
+{
+   height: 320px;
+}
+
+.pubsub_status_line
+{
+   position: absolute;
+   left: 10px;
+   bottom: 5px;
+}
+
+#pubsub_new_window
+{
+   width: 100%;
+   margin-top: 20px;
+}
+
+#pubusb_or
+{
+   margin-top: 16px;
+   margin-bottom: 16px;
+}
+
+#pubsub_new_window_link
+{
+   color: #777;
+   font-size: 12px;
+}
+
+.pubsub_topic_full
+{
+   font-size: 90%;
+   color: #777;
+   margin-bottom: 16px;
+/*   margin-left: 8px; */
+}
+
+#sub_message_clear
+{
+   /*position: relative;
+   left: 280px;*/
+}
+
+.info_bar_pubsub
+{
+   float: none;
+   width: 500px;
+   margin: 20px auto 0;
+}
+
+#helpButton
+{
+   left: 101%;
+   bottom: 30px;
+}
+
+#sub_alt_2_wrapper
+{
+   position: relative;
+}
+
+#pub_message,
+#sub_message {
+   overflow: auto; /*remove vertical scroll bars in IE*/
+}
