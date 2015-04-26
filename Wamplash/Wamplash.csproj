@@ -48,11 +48,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Roles\Broker.cs" />
+    <Compile Include="Roles\Callee.cs" />
+    <Compile Include="Roles\Caller.cs" />
+    <Compile Include="Messages\MessageTypes.cs" />
+    <Compile Include="Roles\Dealer.cs" />
+    <Compile Include="Messages\EventMessage.cs" />
+    <Compile Include="Features\Feature.cs" />
+    <Compile Include="Features\FeatureAttribute.cs" />
+    <Compile Include="Messages\HelloMessage.cs" />
+    <Compile Include="Features\ICallCanceling.cs" />
+    <Compile Include="Features\ICallerIdentification.cs" />
+    <Compile Include="Features\ICallTimeout.cs" />
+    <Compile Include="Features\ICallTrustLevels.cs" />
+    <Compile Include="Messages\IDetails.cs" />
+    <Compile Include="Features\IEventHistory.cs" />
+    <Compile Include="Features\IPatternBasedRegistration.cs" />
+    <Compile Include="Features\IPatternBasedSubscription.cs" />
+    <Compile Include="Features\IProgressiveCallResults.cs" />
+    <Compile Include="Messages\IPublication.cs" />
+    <Compile Include="Features\IPublicationTrustLevels.cs" />
+    <Compile Include="Features\IPublisherExclusion.cs" />
+    <Compile Include="Features\IPublisherIdentification.cs" />
+    <Compile Include="Messages\IRealm.cs" />
+    <Compile Include="Features\IRegistrationMetaApi.cs" />
+    <Compile Include="Messages\IRequest.cs" />
+    <Compile Include="Messages\ISession.cs" />
+    <Compile Include="Features\ISharedRegistration.cs" />
+    <Compile Include="Features\ISubscriberBlackwhiteListing.cs" />
+    <Compile Include="Messages\ISubscription.cs" />
+    <Compile Include="Features\ISubscriptionMetaApi.cs" />
+    <Compile Include="Messages\ITopic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\Publisher.cs" />
+    <Compile Include="Messages\PublishMessage.cs" />
+    <Compile Include="Roles\Role.cs" />
+    <Compile Include="Roles\RoleCodes.cs" />
+    <Compile Include="Messages\SubscribedMessage.cs" />
+    <Compile Include="Messages\SubscribeMessage.cs" />
+    <Compile Include="Roles\Subscriber.cs" />
+    <Compile Include="Messages\UnsubscribedMessage.cs" />
+    <Compile Include="Messages\UnsubscribeMessage.cs" />
+    <Compile Include="Messages\WampMessage.cs" />
+    <Compile Include="Handlers\WampMessageHandler.cs" />
+    <Compile Include="Handlers\WampWebSocketHandler.cs" />
+    <Compile Include="Messages\WelcomeMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
