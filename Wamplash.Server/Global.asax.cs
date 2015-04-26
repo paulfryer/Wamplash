@@ -10,7 +10,9 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.Web.WebSockets;
 using Wamplash.Redis;
+using Wamplash.Redis.Handlers;
 using Wamplash.Server.Controllers;
+using Wamplash.Server.Handlers;
 
 namespace Wamplash.Server
 {
@@ -30,7 +32,7 @@ namespace Wamplash.Server
         void BuildContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<CacheSharpWampWebSocketHandler>().As<WebSocketHandler>();
+            builder.RegisterType<DemoHandler>().As<WebSocketHandler>();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 

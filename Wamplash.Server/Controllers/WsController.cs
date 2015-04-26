@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
@@ -10,7 +9,7 @@ namespace Wamplash.Server.Controllers
 {
     public class WsController : ApiController
     {
-    [System.Web.Http.Route("ws")]
+        [System.Web.Http.Route("ws")]
         public HttpResponseMessage Get()
         {
             if (HttpContext.Current.IsWebSocketRequest)
