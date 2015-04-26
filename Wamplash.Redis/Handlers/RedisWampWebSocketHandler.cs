@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using CacheSharp;
 using CacheSharp.Redis;
 using Newtonsoft.Json;
+using Wamplash.Handlers;
+using Wamplash.Messages;
 
-namespace Wamplash.Redis
+namespace Wamplash.Redis.Handlers
 {
-    public class CacheSharpWampWebSocketHandler : WampWebSocketHandler
+    public abstract class RedisWampWebSocketHandler : WampWebSocketHandler
     {
         private readonly RedisCache cache = new RedisCache();
         private readonly Dictionary<string, long> subscriptions = new Dictionary<string, long>();
 
-        public CacheSharpWampWebSocketHandler()
+        protected RedisWampWebSocketHandler() : this(
+            ConfigurationManager.AppSettings.Get("Redis.Endpoint"),
+            ConfigurationManager.AppSettings.Get("Redis.Key"),
+            ConfigurationManager.AppSettings.Get("Redis.UseSsl")
+            )
         {
-            var endpoint = ConfigurationManager.AppSettings.Get("Redis.Endpoint");
-            var key = ConfigurationManager.AppSettings.Get("Redis.Key");
-            var useSsl = ConfigurationManager.AppSettings.Get("Redis.UseSsl");
+        }
+
+        protected RedisWampWebSocketHandler(string endpoint, string key, string useSsl)
+        {
             cache.Initialize(
                 new Dictionary<string, string>
                 {
@@ -27,13 +33,10 @@ namespace Wamplash.Redis
                     {"UseSsl", useSsl}
                 });
             cache.MessageReceived += OnMessageReceived;
-
-            Hello += OnHello;
             Subscribe += OnSubscribe;
             Unsubscribe += OnUnsubscribe;
             Publish += OnPublish;
             Event += OnEvent;
-
         }
 
         private void OnUnsubscribe(UnsubscribeMessage message)
@@ -85,57 +88,6 @@ namespace Wamplash.Redis
 
             cache.SubscribeAsync(message.Topic);
             Send(new SubscribedMessage(message.RequestId, subscriptionId));
-        }
-
-        private void OnHello(HelloMessage message)
-        {
-            var welcome = new WelcomeMessage
-            {
-                SessionId = (int)DateTime.UtcNow.Ticks,
-                Details = new Dictionary<string, object>
-                {
-                    {"authrole", "anonymous"},
-                    {"authmethod", "anonymous"},
-                    {
-                        "roles", new Dictionary<string, object>
-                        {
-                            {
-                                "broker", new Dictionary<string, object>
-                                {
-                                    {
-                                        "features", new Dictionary<string, object>
-                                        {
-                                            {"publisher_identification", true},
-                                            {"publisher_exclusion", true},
-                                            {"subscriber_blackwhite_listing", true}
-                                        }
-                                    }
-                                }
-                            },
-                        }
-                    }
-                }
-            };
-            Send(welcome);
-        }
-
-        public override List<Role> Roles
-        {
-            get
-            {
-                return new List<Role>
-            {
-                new Broker
-                {
-                    PublisherIdentification = true,
-                    PublisherExclusion = true
-                },
-                new Publisher
-                {
-                    PublisherIdentification = true
-                }
-            };
-            }
         }
     }
 }
