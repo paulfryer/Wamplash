@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Messages\IOptions.cs" />
     <Compile Include="Roles\Broker.cs" />
     <Compile Include="Roles\Callee.cs" />
     <Compile Include="Roles\Caller.cs" />
@@ -93,6 +94,8 @@
     <Compile Include="Handlers\WampMessageHandler.cs" />
     <Compile Include="Handlers\WampWebSocketHandler.cs" />
     <Compile Include="Messages\WelcomeMessage.cs" />
+    <Compile Include="UniqueIdGenerationService.cs" />
+    <Compile Include="WampClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;  
+using System.Web.Optimization;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.Web.WebSockets;
-using Wamplash.Redis;
-using Wamplash.Redis.Handlers;
-using Wamplash.Server.Controllers;
 using Wamplash.Server.Handlers;
 
 namespace Wamplash.Server
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -29,13 +23,12 @@ namespace Wamplash.Server
             BuildContainer();
         }
 
-        void BuildContainer()
+        private void BuildContainer()
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<DemoHandler>().As<WebSocketHandler>();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
         }
     }
 }

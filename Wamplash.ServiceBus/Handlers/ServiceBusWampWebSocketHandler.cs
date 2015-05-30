@@ -1,43 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Configuration;
 using System.Threading;
 using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using Newtonsoft.Json;
+using Wamplash.Handlers;
+using Wamplash.Messages;
 
-namespace Wamplash.ServiceBus
+namespace Wamplash.ServiceBus.Handlers
 {
-    public class ServiceBusWampWebSocketHandler : WampWebSocketHandler
+    public abstract class ServiceBusWampWebSocketHandler : WampWebSocketHandler
     {
-        private const string ConnectionString =
-            "Endpoint=sb://wamptastic.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=cjC/ZHnSdG+npz8O8/1gMK2yfrokK1Y+L6sGctVPJyk=";
+        private readonly string connectionString = ConfigurationManager.AppSettings.Get("ServiceBusConnectionString");
+        private readonly NamespaceManager namespaceManager;
 
-        private readonly Dictionary<long, SubscriptionClient> subscriptionClients = new Dictionary<long, SubscriptionClient>();
+        private readonly Dictionary<long, SubscriptionClient> subscriptionClients =
+            new Dictionary<long, SubscriptionClient>();
+
         private readonly Dictionary<long, Thread> subscriptionThreads = new Dictionary<long, Thread>();
         private readonly Dictionary<string, TopicClient> topicClients = new Dictionary<string, TopicClient>();
 
-        private readonly NamespaceManager namespaceManager;
-
         public ServiceBusWampWebSocketHandler()
         {
-            namespaceManager = NamespaceManager.CreateFromConnectionString(ConnectionString);
+            namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
 
-            Hello += OnHello;
             Subscribe += OnSubscribe;
             Unsubscribe += OnUnsubscribe;
             Publish += OnPublish;
             Event += OnEvent;
         }
 
-        private void OnEvent(EventMessage message)
+        private void OnEvent(object sender, EventMessage message)
         {
             Send(message);
         }
 
 
-        private void OnUnsubscribe(UnsubscribeMessage message)
+        private void OnUnsubscribe(object sender, UnsubscribeMessage message)
         {
             subscriptionThreads[message.SubscriptionId].Abort();
             subscriptionThreads.Remove(message.SubscriptionId);
@@ -60,13 +60,13 @@ namespace Wamplash.ServiceBus
             });
         }
 
-        private void OnPublish(PublishMessage message)
+        private void OnPublish(object sender, PublishMessage message)
         {
             if (!topicClients.ContainsKey(message.Topic))
             {
                 if (!namespaceManager.TopicExists(message.Topic))
                     namespaceManager.CreateTopic(message.Topic);
-                var topicClient = TopicClient.CreateFromConnectionString(ConnectionString, message.Topic);
+                var topicClient = TopicClient.CreateFromConnectionString(connectionString, message.Topic);
                 topicClients.Add(message.Topic, topicClient);
             }
 
@@ -78,14 +78,14 @@ namespace Wamplash.ServiceBus
             topicClients[message.Topic].Send(bm);
         }
 
-        private void OnSubscribe(SubscribeMessage message)
+        private void OnSubscribe(object sender, SubscribeMessage message)
         {
             if (!namespaceManager.TopicExists(message.Topic))
                 namespaceManager.CreateTopic(message.Topic);
             var gb = Guid.NewGuid().ToByteArray();
             var subscriptionId = BitConverter.ToInt32(gb, 0);
             namespaceManager.CreateSubscription(message.Topic, subscriptionId.ToString());
-            var subscriptionClient = SubscriptionClient.CreateFromConnectionString(ConnectionString, message.Topic,
+            var subscriptionClient = SubscriptionClient.CreateFromConnectionString(connectionString, message.Topic,
                 subscriptionId.ToString()
                 , ReceiveMode.ReceiveAndDelete);
             subscriptionClients.Add(subscriptionId, subscriptionClient);
@@ -112,43 +112,6 @@ namespace Wamplash.ServiceBus
             thread.Start();
 
             Send(new SubscribedMessage(message.RequestId, subscriptionId));
-        }
-
-        private void OnHello(HelloMessage message)
-        {
-            var welcome = new WelcomeMessage
-            {
-                SessionId = (int)DateTime.UtcNow.Ticks,
-                Details = new Dictionary<string, object>
-                {
-                    {"authrole", "anonymous"},
-                    {"authmethod", "anonymous"},
-                    {
-                        "roles", new Dictionary<string, object>
-                        {
-                            {
-                                "broker", new Dictionary<string, object>
-                                {
-                                    {
-                                        "features", new Dictionary<string, object>
-                                        {
-                                            {"publisher_identification", true},
-                                            {"publisher_exclusion", true},
-                                            {"subscriber_blackwhite_listing", true}
-                                        }
-                                    }
-                                }
-                            },
-                        }
-                    }
-                }
-            };
-            Send(welcome);
-        }
-
-        public override List<Role> Roles
-        {
-            get { throw new NotImplementedException(); }
         }
     }
 }

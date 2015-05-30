@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Microsoft.Web.WebSockets;
 using Newtonsoft.Json;
 using Wamplash.Features;
@@ -34,7 +35,7 @@ namespace Wamplash.Handlers
         public void RaiseEvent(EventMessage eventMessage)
         {
             if (Event != null)
-                Event(eventMessage);
+                Event(this, eventMessage);
         }
 
 
@@ -60,14 +61,16 @@ namespace Wamplash.Handlers
                     typeof (WampWebSocketHandler).GetField(messageName, BindingFlags.Instance | BindingFlags.NonPublic)
                         .GetValue(this);
             if (eventDelegate != null)
-                eventDelegate.Method.Invoke(eventDelegate.Target, new object[] {m});
+                eventDelegate.Method.Invoke(eventDelegate.Target, new object[] {this, m});
             else throw new Exception("Message not implemented : " + messageType);
         }
 
         protected virtual long GetSessionId(HelloMessage helloMessage)
         {
-            return (int) DateTime.UtcNow.Ticks;
+            return UniqueIdGenerationService.GenerateUniqueId();
         }
+
+
 
         protected virtual string GetAuthRole(HelloMessage helloMessage)
         {
@@ -79,14 +82,14 @@ namespace Wamplash.Handlers
             return "anonymous";
         }
 
-        private void OnHello(HelloMessage message)
+        private void OnHello(object sender, HelloMessage message)
         {
-            var details = new Dictionary<string, object>();
-
-            details.Add("authrole", GetAuthRole(message));
-            details.Add("authmethod", GetAuthMethod(message));
-
-            details.Add("roles", new Dictionary<string, object>());
+            var details = new Dictionary<string, object>
+            {
+                {"authrole", GetAuthRole(message)},
+                {"authmethod", GetAuthMethod(message)},
+                {"roles", new Dictionary<string, object>()}
+            };
 
             foreach (var role in Roles)
             {
@@ -115,13 +118,10 @@ namespace Wamplash.Handlers
                 }
             }
 
-            var welcome = new WelcomeMessage
-            {
-                SessionId = GetSessionId(message),
-                Details = details
-            };
+            var sessionId = GetSessionId(message);
+            var welcome = new WelcomeMessage(sessionId, details);
 
-
+            Send(welcome);
             /*
             var welcome = new WelcomeMessage
             {
@@ -150,7 +150,7 @@ namespace Wamplash.Handlers
                     }
                 }
             };*/
-            Send(welcome);
+            
         }
     }
 }

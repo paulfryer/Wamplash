@@ -8,6 +8,12 @@ namespace Wamplash.Messages
             SubscriptionId = subscriptionId;
         }
 
+        public SubscribedMessage(dynamic json)
+        {
+            RequestId = json[1];
+            SubscriptionId = json[2];
+        }
+
         public override int MessageId
         {
             get { return MessageTypes.Subscribed; }

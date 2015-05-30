@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reactive;
+using System.Reactive.Linq;
+using Wamplash.Messages;
 using Wamplash.Redis.Handlers;
 using Wamplash.Roles;
 
@@ -6,6 +11,13 @@ namespace Wamplash.Server.Handlers
 {
     public class DemoHandler : RedisWampWebSocketHandler
     {
+        public DemoHandler()
+        {
+            var events = Observable.FromEventPattern<EventMessage>(this, "Event");
+            events.Subscribe(OnNext);
+        }
+
+
         public override List<Role> Roles
         {
             get
@@ -22,6 +34,11 @@ namespace Wamplash.Server.Handlers
                     }
                 };
             }
+        }
+
+        private void OnNext(EventPattern<EventMessage> eventPattern)
+        {
+            Debug.Print("Message: " + eventPattern.EventArgs.SubscriptionId);
         }
     }
 }

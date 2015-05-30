@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using CacheSharp;
 using CacheSharp.Redis;
 using Newtonsoft.Json;
@@ -13,7 +14,18 @@ namespace Wamplash.Redis.Handlers
     public abstract class RedisWampWebSocketHandler : WampWebSocketHandler
     {
         private readonly RedisCache cache = new RedisCache();
-        private readonly Dictionary<string, long> subscriptions = new Dictionary<string, long>();
+
+        // TODO: think about using redis pub/sub to sync this dictionary with central cache. That could allow us to support hoizontal scale and have a 
+        // stateless architecture, so if a node goes down another node can continue to support the clients subscriptions that used the down node.
+        // We probably just need to sync add/remove of subscriptions in the dictionary. 
+        
+
+        /// <summary>
+        /// Key = Topic, Value = List of subscription ids.
+        /// </summary>
+        //private readonly Dictionary<string, List<long>> subscriptions = new Dictionary<string, List<long>>();
+
+        private readonly Dictionary<string, long> subscriptions = new Dictionary<string, long>(); 
 
         protected RedisWampWebSocketHandler() : this(
             ConfigurationManager.AppSettings.Get("Redis.Endpoint"),
@@ -39,20 +51,22 @@ namespace Wamplash.Redis.Handlers
             Event += OnEvent;
         }
 
-        private void OnUnsubscribe(UnsubscribeMessage message)
+        private void OnUnsubscribe(object sender, UnsubscribeMessage message)
         {
-            foreach (var subscription in subscriptions)
-                if (subscription.Value == message.SubscriptionId)
-                {
-                    cache.UnsubscribeAsync(subscription.Key);
-                }
+            if (subscriptions.ContainsValue(message.SubscriptionId))
+            {
+                var topic = subscriptions.Single(s => s.Value == message.SubscriptionId).Key;
+                cache.UnsubscribeAsync(topic);
+                subscriptions.Remove(topic);
+            }
+
             Send(new UnsubscribedMessage
             {
                 RequestId = message.RequestId
             });
         }
 
-        private void OnEvent(EventMessage message)
+        private void OnEvent(object sender, EventMessage message)
         {
             if (subscriptions.ContainsValue(message.SubscriptionId))
                 Send(message);
@@ -62,32 +76,40 @@ namespace Wamplash.Redis.Handlers
         {
             var publishMessage = JsonConvert.DeserializeObject<PublishMessage>(e.Value);
 
+            
+
             foreach (var subscription in subscriptions.Where(s => s.Key == publishMessage.Topic))
             {
-                RaiseEvent(new EventMessage
-                {
-                    Details = publishMessage.Details,
-                    SubscriptionId = subscription.Value,
-                    PublicationId = DateTime.UtcNow.Ticks
-                });
+                var @event = new EventMessage(subscription.Value, publishMessage.RequestId, null, publishMessage.Details);
+                    RaiseEvent(@event);
             }
         }
 
-        private void OnPublish(PublishMessage message)
+        private void OnPublish(object sender, PublishMessage message)
         {
             var value = JsonConvert.SerializeObject(message);
             cache.PublishAsync(message.Topic, value);
         }
 
-        private void OnSubscribe(SubscribeMessage message)
+        private void OnSubscribe(object sender, SubscribeMessage message)
         {
-            // todo: find a btter way to make this.
-            var subscriptionId = long.MaxValue - DateTime.UtcNow.Ticks;
+            var subscriptionId = UniqueIdGenerationService.GenerateUniqueId();
+            
+            if (!subscriptions.ContainsKey(message.Topic))
+            {
+                cache.SubscribeAsync(message.Topic);
+                subscriptions.Add(message.Topic, subscriptionId);
+            }
+            else
+            {
+                subscriptions[message.Topic] = subscriptionId;
+            }
 
-            subscriptions.Add(message.Topic, subscriptionId);
+            
+           
 
-            cache.SubscribeAsync(message.Topic);
             Send(new SubscribedMessage(message.RequestId, subscriptionId));
         }
+
     }
 }

@@ -4,6 +4,21 @@ namespace Wamplash.Messages
 {
     public class WelcomeMessage : WampMessage, ISession, IDetails
     {
+        public WelcomeMessage(long sessionId, dynamic details = null)
+        {
+            SessionId = sessionId;
+            if (details != null)
+                Details = details;
+        }
+
+        public WelcomeMessage(dynamic json)
+        {
+            SessionId = json[1];
+            if (json.Count > 2)
+                Details = json[2];
+        }
+
+
         public override int MessageId
         {
             get { return MessageTypes.Welcome; }
