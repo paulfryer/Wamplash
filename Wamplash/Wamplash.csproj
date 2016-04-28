@@ -40,7 +40,17 @@
       <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +58,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSettingsSynchronizationPolicy.cs" />
+    <Compile Include="Handlers\IRoleDescriber.cs" />
+    <Compile Include="IAuditService.cs" />
+    <Compile Include="ISynchronizationPolicy.cs" />
+    <Compile Include="Messages\AuthenticateMessage.cs" />
+    <Compile Include="Messages\ChallengeMessage.cs" />
     <Compile Include="Messages\IOptions.cs" />
     <Compile Include="Roles\Broker.cs" />
     <Compile Include="Roles\Callee.cs" />
@@ -94,11 +110,15 @@
     <Compile Include="Handlers\WampMessageHandler.cs" />
     <Compile Include="Handlers\WampWebSocketHandler.cs" />
     <Compile Include="Messages\WelcomeMessage.cs" />
+    <Compile Include="SubscriptionSynchronizer.cs" />
     <Compile Include="UniqueIdGenerationService.cs" />
     <Compile Include="WampClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using CacheSharp;
 using CacheSharp.Redis;
 using Newtonsoft.Json;
@@ -11,31 +9,27 @@ using Wamplash.Messages;
 
 namespace Wamplash.Redis.Handlers
 {
-    public abstract class RedisWampWebSocketHandler : WampWebSocketHandler
+    public sealed class RedisWampWebSocketHandler : WampWebSocketHandler
     {
         private readonly RedisCache cache = new RedisCache();
 
         // TODO: think about using redis pub/sub to sync this dictionary with central cache. That could allow us to support hoizontal scale and have a 
         // stateless architecture, so if a node goes down another node can continue to support the clients subscriptions that used the down node.
         // We probably just need to sync add/remove of subscriptions in the dictionary. 
-        
+        private readonly Dictionary<string, long> subscriptions = new Dictionary<string, long>();
 
-        /// <summary>
-        /// Key = Topic, Value = List of subscription ids.
-        /// </summary>
-        //private readonly Dictionary<string, List<long>> subscriptions = new Dictionary<string, List<long>>();
-
-        private readonly Dictionary<string, long> subscriptions = new Dictionary<string, long>(); 
-
-        protected RedisWampWebSocketHandler() : this(
+        public RedisWampWebSocketHandler(ISynchronizationPolicy syncPoly, IRoleDescriber roleDescriber) : this(
             ConfigurationManager.AppSettings.Get("Redis.Endpoint"),
             ConfigurationManager.AppSettings.Get("Redis.Key"),
-            ConfigurationManager.AppSettings.Get("Redis.UseSsl")
+            ConfigurationManager.AppSettings.Get("Redis.UseSsl"),
+            syncPoly, roleDescriber
             )
         {
         }
 
-        protected RedisWampWebSocketHandler(string endpoint, string key, string useSsl)
+        public RedisWampWebSocketHandler(string endpoint, string key, string useSsl, ISynchronizationPolicy syncPoly,
+            IRoleDescriber roleDescriber) :
+                base(syncPoly, roleDescriber)
         {
             cache.Initialize(
                 new Dictionary<string, string>
@@ -76,12 +70,11 @@ namespace Wamplash.Redis.Handlers
         {
             var publishMessage = JsonConvert.DeserializeObject<PublishMessage>(e.Value);
 
-            
 
             foreach (var subscription in subscriptions.Where(s => s.Key == publishMessage.Topic))
             {
                 var @event = new EventMessage(subscription.Value, publishMessage.RequestId, null, publishMessage.Details);
-                    RaiseEvent(@event);
+                RaiseEvent(@event);
             }
         }
 
@@ -94,7 +87,7 @@ namespace Wamplash.Redis.Handlers
         private void OnSubscribe(object sender, SubscribeMessage message)
         {
             var subscriptionId = UniqueIdGenerationService.GenerateUniqueId();
-            
+
             if (!subscriptions.ContainsKey(message.Topic))
             {
                 cache.SubscribeAsync(message.Topic);
@@ -105,11 +98,8 @@ namespace Wamplash.Redis.Handlers
                 subscriptions[message.Topic] = subscriptionId;
             }
 
-            
-           
 
             Send(new SubscribedMessage(message.RequestId, subscriptionId));
         }
-
     }
 }

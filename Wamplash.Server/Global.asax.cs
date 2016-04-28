@@ -6,6 +6,9 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Microsoft.Web.WebSockets;
+using Wamplash.Azure;
+using Wamplash.Handlers;
+using Wamplash.Redis.Handlers;
 using Wamplash.Server.Handlers;
 
 namespace Wamplash.Server
@@ -26,7 +29,9 @@ namespace Wamplash.Server
         private void BuildContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<DemoHandler>().As<WebSocketHandler>();
+            builder.RegisterType<AppSettingsSynchronizationPolicy>().As<ISynchronizationPolicy>();
+            builder.RegisterType<DemoRoleDescriber>().As<IRoleDescriber>();
+            builder.RegisterType<RedisWampWebSocketHandler>().As<WebSocketHandler>();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

@@ -104,8 +104,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -219,14 +219,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\DemoHandler.cs" />
+    <Compile Include="Handlers\DemoRoleDescriber.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
-    <Compile Include="Startup.cs" />
+    <None Include="Properties\PublishProfiles\wamplash.pubxml" />
+    <None Include="Properties\PublishProfiles\west-europe-wamplash.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -315,6 +316,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wamplash.Azure\Wamplash.Azure.csproj">
+      <Project>{B1B5C4F8-5110-40AA-A494-9A6A8D9B6E9D}</Project>
+      <Name>Wamplash.Azure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wamplash.Redis\Wamplash.Redis.csproj">
       <Project>{D5FEABA9-C826-458C-A637-DBBB9BE3944D}</Project>
       <Name>Wamplash.Redis</Name>

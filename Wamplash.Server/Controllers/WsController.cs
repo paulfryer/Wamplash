@@ -15,10 +15,10 @@ namespace Wamplash.Server.Controllers
             if (HttpContext.Current.IsWebSocketRequest)
             {
                 var handler = DependencyResolver.Current.GetService<WebSocketHandler>();
-                //var webSocketProtocol = HttpContext.Current.Request.Headers["Sec-WebSocket-Protocol"];
+                var webSocketProtocol = HttpContext.Current.Request.Headers["Sec-WebSocket-Protocol"];
                 //if (webSocketProtocol.ToLower() != "wamp.2.json")
                 //    throw new Exception("Unsupported websocket protocol!");
-                //HttpContext.Current.Response.AddHeader("Sec-WebSocket-Protocol", webSocketProtocol);
+                HttpContext.Current.Response.AddHeader("Sec-WebSocket-Protocol", webSocketProtocol);
                 HttpContext.Current.AcceptWebSocketRequest(handler);
                 return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
             }

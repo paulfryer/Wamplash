@@ -10,7 +10,7 @@ using Wamplash.Messages;
 
 namespace Wamplash.ServiceBus.Handlers
 {
-    public abstract class ServiceBusWampWebSocketHandler : WampWebSocketHandler
+    public sealed class ServiceBusWampWebSocketHandler : WampWebSocketHandler
     {
         private readonly string connectionString = ConfigurationManager.AppSettings.Get("ServiceBusConnectionString");
         private readonly NamespaceManager namespaceManager;
@@ -21,7 +21,9 @@ namespace Wamplash.ServiceBus.Handlers
         private readonly Dictionary<long, Thread> subscriptionThreads = new Dictionary<long, Thread>();
         private readonly Dictionary<string, TopicClient> topicClients = new Dictionary<string, TopicClient>();
 
-        public ServiceBusWampWebSocketHandler()
+        public ServiceBusWampWebSocketHandler(ISynchronizationPolicy synchronizationPolicy, IRoleDescriber roleDescriber)
+            :
+                base(synchronizationPolicy, roleDescriber)
         {
             namespaceManager = NamespaceManager.CreateFromConnectionString(connectionString);
 
@@ -98,12 +100,7 @@ namespace Wamplash.ServiceBus.Handlers
                     {
                         var publicationId = long.Parse(sbMessage.MessageId);
                         var payload = sbMessage.GetBody<string>();
-                        RaiseEvent(new EventMessage
-                        {
-                            Details = payload,
-                            PublicationId = publicationId,
-                            SubscriptionId = subscriptionId
-                        });
+                        RaiseEvent(new EventMessage(subscriptionId, publicationId, payload, null));
                     }
                 }
             });
