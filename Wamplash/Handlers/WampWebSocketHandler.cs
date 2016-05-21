@@ -19,7 +19,7 @@ namespace Wamplash.Handlers
             this.roleDescriber = roleDescriber;
             SynchronizationPolicy = synchronizationPolicy;
 
-            Hello += OnHello;
+            //Hello += OnHello;
 
 
             if (SynchronizationPolicy != null && SynchronizationPolicy.Synchronize)
@@ -33,6 +33,7 @@ namespace Wamplash.Handlers
         public Uri Endpoint { get; private set; }
         public long SessionId { get; private set; }
         public string AuthMethod { get; set; }
+        public string AuthRole { get; set; }
         public string Realm { get; set; }
 
         public IAuditService AuditService { get; set; }
@@ -113,7 +114,8 @@ namespace Wamplash.Handlers
         public event WampMessageHandler<PublishMessage> Publish;
         public event WampMessageHandler<UnsubscribeMessage> Unsubscribe;
         public event WampMessageHandler<EventMessage> Event;
-        public event WampMessageHandler<AuthenticateMessage> Authenticate; 
+        public event WampMessageHandler<AuthenticateMessage> Authenticate;
+        public event WampMessageHandler<CallMessage> Call; 
 
         public void RaiseEvent(EventMessage eventMessage)
         {
@@ -154,42 +156,18 @@ namespace Wamplash.Handlers
             else throw new Exception("Message not implemented : " + messageType);
         }
 
-        protected virtual long GetSessionId(WampMessage message)
+        protected virtual long GetSessionId()
         {
             return UniqueIdGenerationService.GenerateUniqueId();
         }
 
-
-        protected virtual string GetAuthRole(WampMessage helloMessage)
+        protected void SendWelcome()
         {
-            return "anonymous";
-        }
 
-        protected virtual string GetAuthMethod(WampMessage helloMessage)
-        {
-            return "anonymous";
-        }
-
-        private void OnHello(object sender, HelloMessage message)
-        {
-            Realm = message.Realm;
-            AuthMethod = GetAuthMethod(message);
-            if (AuthMethod != "anonymous")
+            var details = new Dictionary<string, object>
             {
-                var challenge = new ChallengeMessage(AuthMethod);
-                Send(challenge);
-                return;
-            }
-            SendWelcome(message);
-        }
-
-        internal void SendWelcome(WampMessage message)
-        {
-
-        var details = new Dictionary<string, object>
-            {
-                {"authrole", GetAuthRole(message)},
-                {"authmethod", GetAuthMethod(message)},
+                {"authrole", AuthRole},
+                {"authmethod", AuthMethod},
                 {"roles", new Dictionary<string, object>()}
             };
 
@@ -199,13 +177,9 @@ namespace Wamplash.Handlers
                 {
                     {"features", new Dictionary<string, bool>()}
                 };
-
                 (details["roles"] as Dictionary<string, object>)
                     .Add(role.GetType().Name.ToLower(), features);
-
-
                 // TODO: this part needs work. Have to find the interfaces members then see if they are set to true.
-
                 foreach (
                     var featureAttribute in
                         role.GetType()
@@ -219,12 +193,9 @@ namespace Wamplash.Handlers
                 }
             }
 
-            var sessionId = GetSessionId(message);
-
+            var sessionId =GetSessionId();
             SessionId = sessionId;
-
             var welcome = new WelcomeMessage(sessionId, details);
-
             Send(welcome);
             /*
             var welcome = new WelcomeMessage
